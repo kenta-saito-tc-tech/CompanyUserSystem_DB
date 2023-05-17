@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="431.0" prefWidth="406.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.companyusersystem_db.CompanyController">
+<padding>
+    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+</padding>
+<children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+          <Label text="ユーザー管理システム" />
+            <Pane prefHeight="45.0" prefWidth="165.0" />
+            <Button fx:id="backBtn" mnemonicParsing="false" onAction="#backToUser" prefHeight="25.0" prefWidth="99.0" text="ユーザー管理へ" />
+         </children>
+      </HBox>
+    <Pane prefHeight="5.0" prefWidth="366.0" />
+    <HBox alignment="CENTER" prefHeight="195.0" prefWidth="366.0">
+        <children>
+            <VBox prefHeight="150.0" prefWidth="253.0">
+                <children>
+                    <Label text="会社追加" />
+                    <Pane prefHeight="0.0" prefWidth="175.0" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="2.0" prefWidth="184.0">
+                        <children>
+                            <Label text="会社名" />
+                            <Pane prefHeight="40.0" prefWidth="23.0" />
+                            <TextArea fx:id="addName" prefHeight="40.0" prefWidth="100.0" />
+                        </children>
+                    </HBox>
+                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <Pane prefHeight="25.0" prefWidth="59.0" />
+                            <Button fx:id="addCompany" mnemonicParsing="false" text="追加" />
+                        </children>
+                    </HBox>
+                  <Pane layoutX="10.0" layoutY="67.0" prefHeight="200.0" prefWidth="200.0" />
+                </children>
+            </VBox>
+            <VBox prefHeight="100.0" prefWidth="269.0">
+                <children>
+                    <Label text="会社編集" />
+                    <Pane prefHeight="6.0" prefWidth="191.0" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="5.0" prefWidth="183.0">
+                        <children>
+                            <Label text="会社ID" />
+                            <Pane prefHeight="40.0" prefWidth="26.0" />
+                            <TextArea fx:id="changeId" prefHeight="40.0" prefWidth="98.0" />
+                        </children>
+                    </HBox>
+                    <Pane prefHeight="200.0" prefWidth="200.0" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="10.0" prefWidth="183.0">
+                        <children>
+                            <Label text="会社名" />
+                            <Pane prefHeight="40.0" prefWidth="26.0" />
+                            <TextArea fx:id="changeName" prefHeight="40.0" prefWidth="98.0" />
+                        </children>
+                    </HBox>
+                    <Pane prefHeight="200.0" prefWidth="191.0" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <children>
+                            <Button fx:id="deleteCompany" mnemonicParsing="false" text="削除" />
+                            <Pane prefHeight="25.0" prefWidth="21.0" />
+                            <Button fx:id="changeCompany" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="更新" />
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+        </children>
+    </HBox>
+    <TableView fx:id="allView" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+            <TableColumn fx:id="idView" prefWidth="75.0" text="会社ID" />
+            <TableColumn fx:id="companyView" prefWidth="128.33334350585938" text="企業名" />
+        </columns>
+    </TableView>
+</children>
+</VBox>
