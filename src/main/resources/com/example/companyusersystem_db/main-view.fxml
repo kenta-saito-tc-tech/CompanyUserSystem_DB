@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="431.0" prefWidth="406.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.companyusersystem_db.MainController">
+<VBox prefHeight="507.0" prefWidth="406.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.companyusersystem_db.MainController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -102,7 +102,7 @@
             </VBox>
          </children>
       </HBox>
-      <TableView fx:id="allView" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="allView" prefHeight="200.0" prefWidth="366.0">
         <columns>
           <TableColumn fx:id="companyView" prefWidth="128.33334350585938" text="所属企業" />
           <TableColumn fx:id="idView" prefWidth="75.0" text="社員番号" />
@@ -110,5 +110,12 @@
             <TableColumn fx:id="scoreView" prefWidth="74.0" text="スコア" />
         </columns>
       </TableView>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="prevButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="戻る" />
+            <Pane prefHeight="11.0" prefWidth="288.0" />
+            <Button fx:id="nextButton" mnemonicParsing="false" text="進む" />
+         </children>
+      </HBox>
    </children>
 </VBox>

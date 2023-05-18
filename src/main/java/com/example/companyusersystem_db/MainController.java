@@ -1,5 +1,6 @@
 package com.example.companyusersystem_db;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,15 @@ import java.io.IOException;
 public class MainController {
     @FXML
     private Button stepBtn;
+
+    @FXML
+    private Button nextButton; // 次へボタン
+    @FXML
+    private Button prevButton; // 戻るボタン
+    private int currentPage = 0;
+    private int itemsPerPage = 50; // 1ページあたりの表示件数
+
+    private ObservableList<Person> data;
     /**
      * ユーザー追加
      */
@@ -80,10 +90,17 @@ public class MainController {
         }
         changeCompany.getItems().addAll(addCompany.getItems());
 
+
         //tableViewの初期表示
-        for(int i = 0; i < us.count(); i++ ){
-            allView.getItems().add(new Person(us.findAllTable(), i));
-        }
+//        for(int i = 0; i < us.count(); i++ ){
+//            allView.getItems().add(new Person(us.findAllTable(), i));
+//        }
+
+        updateTableView();
+
+        // ページング操作用のボタンを設定する
+        nextButton.setOnAction(event -> nextPage());
+        prevButton.setOnAction(event -> previousPage());
 
         //追加ボタンクリック時処理
         addUser.setOnAction(new EventHandler<ActionEvent>() {
@@ -94,11 +111,8 @@ public class MainController {
                         Integer.parseInt(addScore.getText()));
                 //データのインサート
                 us.insert(User.changeToUserNoId(ps));
-                //TableViewを更新
-                allView.getItems().clear();
-                for(int i = 0; i < us.count(); i++ ){
-                    allView.getItems().add(new Person(us.findAllTable(), i));
-                }
+
+                updateTableView();
             }
         });
 
@@ -121,11 +135,8 @@ public class MainController {
                         public void handle(ActionEvent event) {
                             allView.getItems().remove(selectedPerson);
                             System.out.println(us.delete(selectedPerson.idProperty()));
-                            //TableViewを更新
-                            allView.getItems().clear();
-                            for(int i = 0; i < us.count(); i++ ){
-                                allView.getItems().add(new Person(us.findAllTable(), i));
-                            }
+
+                            updateTableView();
                         }
                     });
 
@@ -139,17 +150,19 @@ public class MainController {
                             selectedPerson.setScore(Integer.parseInt(changeScore.getText()));
                             //データベースの更新
                             System.out.println(us.update(User.changeToUser(selectedPerson)));
-                            //TableViewを更新
-                            allView.getItems().clear();
-                            for(int i = 0; i < us.count(); i++ ){
-                                allView.getItems().add(new Person(us.findAllTable(), i));
-                            }
+
+                            updateTableView();
                         }
                     });
                 }
             }
         });
     }
+
+    /**
+     * 次ページに移動
+     * @param event
+     */
     @FXML
     public void stepToCompany(ActionEvent event){
         Parent root = null;
@@ -165,5 +178,39 @@ public class MainController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * TableViewの設定
+     */
+    private void updateTableView() {
+        //tableViewの初期表示
+        data = FXCollections.observableArrayList();
+        for (int i = 0; i < us.count(); i++) {
+            data.add(new Person(us.findAllTable(), i));
+        }
+
+        allView.setItems(data);
+
+        // 表示すべきデータの範囲を計算する
+        int startIndex = currentPage * itemsPerPage;
+        int endIndex = Math.min(startIndex + itemsPerPage, us.findAllTable().size());
+
+        // TableViewに表示するデータをセットする
+        allView.setItems(FXCollections.observableArrayList(data.subList(startIndex, endIndex)));
+
+        // ボタンの有効/無効状態を更新する
+        nextButton.setDisable(endIndex >= data.size());
+        prevButton.setDisable(currentPage == 0);
+    }
+
+    private void nextPage() {
+        currentPage++;
+        updateTableView();
+    }
+
+    private void previousPage() {
+        currentPage--;
+        updateTableView();
     }
 }
